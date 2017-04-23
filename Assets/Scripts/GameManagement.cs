@@ -5,23 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class GameManagement : MonoBehaviour {
 
-    AsyncOperation async;
-	// Use this for initialization
-	void Start () 
+    AsyncOperation async1;
+    AsyncOperation async2;
+    // Use this for initialization
+    void Start () 
 	{
         //PlayerPrefs.SetFloat("WorldRotation", transform.parent.rotation.x);
-        async = SceneManager.LoadSceneAsync("main", LoadSceneMode.Additive);
+        async1 = SceneManager.LoadSceneAsync("main", LoadSceneMode.Additive);
+        async2 = SceneManager.LoadSceneAsync("ui", LoadSceneMode.Additive);
+
         StartCoroutine(iSync());
     }
 
     public IEnumerator iSync()
     {
-        while (!async.isDone)
+        while (!async1.isDone)
         {
             print("true");
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
         }
-        
+        while (!async2.isDone)
+        {
+            print("true");
+            yield return new WaitForSeconds(0.2f);
+        }
+
         GameObject g = GameObject.Find("Main Camera");
         g.SetActive(false);
     }
