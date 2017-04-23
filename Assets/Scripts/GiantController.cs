@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GiantController : MonoBehaviour {
+public class GiantController : MonoBehaviour
+{
 
     private Animator animator;
 
-    void Start() {
+    void Start()
+    {
         animator = this.GetComponent<Animator>();
     }
 

@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 
-public class WorldNavigation : MonoBehaviour {
+public class WorldNavigation : MonoBehaviour
+{
 
     public float speed;
 
-    void Start () {
+    void Start()
+    {
     }
-	
-	void Update () {
+
+    void Update()
+    {
         if (Input.GetKey(KeyCode.UpArrow))
         {
             RotateXBy(-speed);
@@ -18,7 +21,8 @@ public class WorldNavigation : MonoBehaviour {
         }
     }
 
-    void RotateXBy(float x) {
+    void RotateXBy(float x)
+    {
         transform.Rotate(new Vector3(x, 0, 0) * Time.deltaTime);
     }
 }
