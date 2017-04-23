@@ -7,8 +7,9 @@ public class Billboard : MonoBehaviour
     Camera c;
     void Start()
     {
-        c = GameObject.Find("Camera").GetComponent<Camera>();
-        if (c == null) c = Camera.main;
+        GameObject g = GameObject.Find("Camera");
+
+        if (g == null) { c = Camera.main; } else { c = g.GetComponent<Camera>();  }
     }
 
     void Update()
