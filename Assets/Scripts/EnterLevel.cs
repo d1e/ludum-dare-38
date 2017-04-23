@@ -17,6 +17,7 @@ public class EnterLevel : MonoBehaviour
 
     void Update()
     {
+        zoomDisplace = gameObject.transform.position;
     }
 
     void OnMouseDown()
