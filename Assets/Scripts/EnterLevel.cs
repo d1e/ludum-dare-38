@@ -7,9 +7,12 @@ public class EnterLevel : MonoBehaviour
 
     public float speed;
     public float stopZPosition;
+    public Vector3 zoomDisplace;
+    public float zoomSize = 25;
 
     void Start()
     {
+        zoomDisplace = gameObject.transform.position;
     }
 
     void Update()
