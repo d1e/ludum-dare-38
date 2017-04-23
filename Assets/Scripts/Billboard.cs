@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
-
+    Camera c;
     void Start()
     {
+        c = GameObject.Find("Camera").GetComponent<Camera>();
     }
 
     void Update()
     {
-        transform.forward = Camera.main.transform.forward;
+        transform.forward = c.transform.forward;
     }
 }
