@@ -62,19 +62,19 @@ public class GameManagement : MonoBehaviour {
 
         FindLevelObject(levelName).transform.position = v;
 
-        while (g.GetComponent<Camera>().fieldOfView > z + 0.05f || g.GetComponent<Camera>().fieldOfView < z - 0.05f)
-        {
-            if (g.GetComponent<Camera>().fieldOfView > z)
-            {
-                g.GetComponent<Camera>().fieldOfView = g.GetComponent<Camera>().fieldOfView - 0.05f;
-            }
-            else if (g.GetComponent<Camera>().fieldOfView < z)
-            {
-                g.GetComponent<Camera>().fieldOfView = g.GetComponent<Camera>().fieldOfView + 0.05f;
-            }
+        //while (g.GetComponent<Camera>().fieldOfView > z + 0.05f || g.GetComponent<Camera>().fieldOfView < z - 1f)
+        //{
+        //    if (g.GetComponent<Camera>().fieldOfView > z)
+        //    {
+        //        g.GetComponent<Camera>().fieldOfView = g.GetComponent<Camera>().fieldOfView - 1f;
+        //    }
+        //    else if (g.GetComponent<Camera>().fieldOfView < z)
+        //    {
+        //        g.GetComponent<Camera>().fieldOfView = g.GetComponent<Camera>().fieldOfView + 1f;
+        //    }
 
-            yield return new WaitForSeconds(0.1f);
-        }
+        //    yield return new WaitForSeconds(0.1f);
+        //}
 
     }
 
