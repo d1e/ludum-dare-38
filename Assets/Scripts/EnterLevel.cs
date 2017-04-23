@@ -23,7 +23,7 @@ public class EnterLevel : MonoBehaviour {
             transform.localPosition = Vector3.Lerp(
                 transform.localPosition, 
                 new Vector3(transform.localPosition.x, transform.localPosition.y, stopZPosition),
-                speed * 0.01f
+                speed / 10 * Time.deltaTime
             );
 
             yield return null;
