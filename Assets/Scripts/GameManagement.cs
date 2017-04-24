@@ -8,6 +8,8 @@ public class GameManagement : MonoBehaviour {
     AsyncOperation async1;
     AsyncOperation async2;
     AsyncOperation async3;
+    AsyncOperation async4;
+
     // Use this for initialization
 
     public string nearestLevel = "none";
@@ -64,6 +66,8 @@ public class GameManagement : MonoBehaviour {
 
     public IEnumerator iSyncLevelIn(string levelName)
     {
+        GameObject g = GameObject.Find("level-gate-" + levelName);
+
         giantController.stopInput = true;
         string levelCamName = levelName + "Cam";
         GameObject cam = GameObject.Find("Camera");
@@ -77,43 +81,75 @@ public class GameManagement : MonoBehaviour {
             print("true");
             yield return new WaitForSeconds(0.2f);
         }
+
+        //positon the level
+        FindLevelObject(levelName).transform.position = g.transform.position;
         FindLevelObject(levelCamName).GetComponent<Camera>().enabled = false;
+        
         //move camera to the level
         float elapsedTime = 0;
-        float time = 5;
+        float time = 10;
+        float fadeSpeed = Time.deltaTime * 0.5f;
+
+        float fade = 1;
         while (elapsedTime < time)
         {
+            //fade out the sprite
+            fade -= fadeSpeed;
+            Mathf.Clamp(fade, 0, 1);
+            g.GetComponent<Renderer>().material.color = new Color(1f, 1f, 1f, fade);
+            
+            //movecam
             cam.transform.position = Vector3.Lerp(cam.transform.position, FindLevelObject(levelCamName).transform.position, elapsedTime / time);
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+        g.GetComponent<Renderer>().material.color = new Color(1f, 1f, 1f, 0);
 
-            //rotateCamTo(cam.transform, FindLevelObject(levelCamName).transform.forward, 2);
+        //rotateCamTo(cam.transform, FindLevelObject(levelCamName).transform.forward, 2);
     }
 
 
     public IEnumerator iSyncLevelOut(string levelName)
     {
+        
         GameObject cam = GameObject.Find("Camera");
+        GameObject g = GameObject.Find("level-gate-" + levelName);
+
+        
+
+        //move camera to the level
+        float elapsedTime = 0;
+        float time = 4;
+        float fadeSpeed = Time.deltaTime * 0.5f;
+        float fade = 0;
+        while (elapsedTime < time)
+        {
+            //fade out the sprite
+            fade += fadeSpeed;
+            Mathf.Clamp(fade, 0, 1);
+            g.GetComponent<Renderer>().material.color = new Color(1f, 1f, 1f, fade);
+
+
+            //movecam
+            cam.transform.position = Vector3.Lerp(cam.transform.position, camOrigin, elapsedTime / time);
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        g.GetComponent<Renderer>().material.color = new Color(1f, 1f, 1f, 1);
+        cam.transform.position = camOrigin;
 
         //unload level
-        async3 = SceneManager.UnloadSceneAsync(levelName);
-       
+        async4 = SceneManager.UnloadSceneAsync(levelName);
+
+
         //wait
-        while (!async3.isDone)
+        while (!async4.isDone)
         {
             print("unloading");
             yield return new WaitForSeconds(0.2f);
         }
 
-        //move camera to the level
-        while (!amICloseTo(cam.transform.position, camOrigin, 0.3f))
-        {
-            cam.transform.position = Vector3.Lerp(cam.transform.position, camOrigin, 1);
-            //rotateCamTo(cam.transform, FindLevelObject(levelCamName).transform.forward, 2);
-
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
         giantController.stopInput = false;
     }
 
@@ -154,6 +190,11 @@ public class GameManagement : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            print("hit");
+            StartCoroutine(iSyncLevelOut("boylevelone"));
+        }
+        
 	}
 }
