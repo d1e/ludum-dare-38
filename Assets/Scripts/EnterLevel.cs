@@ -7,6 +7,7 @@ public class EnterLevel : MonoBehaviour
     public GameManagement gm;
 
     public string levelName;
+    public GameObject LevelOverlay;
 
     void Start()
     {
@@ -40,24 +41,14 @@ public class EnterLevel : MonoBehaviour
         }
     }
 
-    //void OnMouseDown()
-    //{
-    //    StartCoroutine("PopUp");
-    //    PlayerPrefs.SetFloat("WorldRotation", transform.parent.rotation.x);
-    //}
+    public void RevealLevelUnderneath()
+    {
 
-    //IEnumerator PopUp()
-    //{
-    //    while (transform.localPosition.z < stopZPosition - 0.001f)
-    //    {
-    //        transform.localPosition = Vector3.Lerp(
-    //            transform.localPosition,
-    //            new Vector3(transform.localPosition.x, transform.localPosition.y, stopZPosition),
-    //            speed / 10 * Time.deltaTime
-    //        );
+    }
 
-    //        yield return null;
-    //    }
-    //}
+    public void HideLevelUnderneath()
+    {
+        
+    }
 
 }

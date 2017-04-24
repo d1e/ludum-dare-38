@@ -7,6 +7,8 @@ public class GiantController : MonoBehaviour
 
     private Animator animator;
 
+    public bool stopInput = false;
+
     void Start()
     {
         animator = this.GetComponent<Animator>();
@@ -14,6 +16,8 @@ public class GiantController : MonoBehaviour
 
     void Update()
     {
+        if (stopInput) return;
+
         if (Input.GetKey(KeyCode.UpArrow))
         {
             animator.SetInteger("Direction", 1);
