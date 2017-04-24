@@ -62,7 +62,7 @@ public class GameManagement : MonoBehaviour {
 
         FindLevelObject(levelName).transform.position = v;
         Camera cam = g.GetComponent<Camera>();
-        while (cam.fieldOfView > z + 0.05f || cam.fieldOfView < z - 1f)
+        while (cam.fieldOfView > z + 1f || cam.fieldOfView < z - 1f)
         {
             if (cam.fieldOfView > z)
             {
@@ -73,11 +73,17 @@ public class GameManagement : MonoBehaviour {
                 cam.fieldOfView = cam.fieldOfView + 1f;
             }
 
+            rotateCamTo(cam.transform, v, 2);
 
 
             yield return new WaitForSeconds(0.1f);
         }
 
+    }
+
+    public void rotateCamTo(Transform t, Vector3 target, float speed)
+    {
+        t.rotation = Quaternion.Slerp(t.rotation, Quaternion.LookRotation(target - t.position), speed * Time.deltaTime);
     }
 
     public GameObject FindLevelGate(string levelName)
