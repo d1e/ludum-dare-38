@@ -9,6 +9,10 @@ public class GameManagement : MonoBehaviour {
     AsyncOperation async2;
     AsyncOperation async3;
     // Use this for initialization
+
+    public string nearestLevel = "none";
+    public List<string> levelsCompleted = new List<string>();
+
     void Start () 
 	{
         BeginGame();

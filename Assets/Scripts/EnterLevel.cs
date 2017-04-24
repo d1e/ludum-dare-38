@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class EnterLevel : MonoBehaviour
 {
+    public GameManagement gm;
+
+    public string levelName;
+
     void Start()
     {
-
+        gm = GameObject.Find("game manager").GetComponent<GameManagement>();
     }
 
     void Update()
@@ -21,6 +25,7 @@ public class EnterLevel : MonoBehaviour
         {
             GameObject g = GameObject.Find("Canvas");
             g.GetComponent<uiManager>().showhideUIElement("enterLevelButton", true);
+            gm.nearestLevel = levelName;
         }
 
     }
@@ -31,6 +36,7 @@ public class EnterLevel : MonoBehaviour
         {
             GameObject g = GameObject.Find("Canvas");
             g.GetComponent<uiManager>().showhideUIElement("enterLevelButton", false);
+            gm.nearestLevel = "none";
         }
     }
 

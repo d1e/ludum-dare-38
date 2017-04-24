@@ -24,8 +24,13 @@ public class uiManager : MonoBehaviour {
         }
     }
 
-	// Update is called once per frame
-	void Update () {
+    public void syncLevelIn()
+    {
+        gm.syncLevelIn(gm.nearestLevel);
+    }
+
+    // Update is called once per frame
+        void Update () {
 		
 	}
 }
