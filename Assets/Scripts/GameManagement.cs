@@ -47,10 +47,8 @@ public class GameManagement : MonoBehaviour {
 
     public IEnumerator iSyncLevelIn(string levelName)
     {
-        Vector3 v = FindLevelGate(levelName).GetComponent<EnterLevel>().zoomDisplace;
-        float z = FindLevelGate(levelName).GetComponent<EnterLevel>().zoomSize;
-
-        GameObject g = GameObject.Find("Camera");
+        string levelCamName = levelName + "Cam";
+        GameObject cam = GameObject.Find("Camera");
 
         async3 = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
 
@@ -60,26 +58,31 @@ public class GameManagement : MonoBehaviour {
             yield return new WaitForSeconds(0.2f);
         }
 
-        FindLevelObject(levelName).transform.position = v;
-        Camera cam = g.GetComponent<Camera>();
-        while (cam.fieldOfView > z + 1f || cam.fieldOfView < z - 1f)
+
+        while (amICloseTo(cam.transform.position, FindLevelObject(levelCamName).transform.position, 0.3f))
         {
-            if (cam.fieldOfView > z)
-            {
-                cam.fieldOfView = cam.fieldOfView - 1f;
-            }
-            else if (cam.fieldOfView < z)
-            {
-                cam.fieldOfView = cam.fieldOfView + 1f;
-            }
 
-            rotateCamTo(cam.transform, v, 2);
-
+            Vector3.Lerp(cam.transform.position, FindLevelObject(levelCamName).transform.position, 2);
+            rotateCamTo(cam.transform, FindLevelObject(levelCamName).transform.forward, 2);
 
             yield return new WaitForSeconds(0.1f);
         }
 
     }
+
+    public bool amICloseTo(Vector3 v1, Vector3 v2, float minDistance)
+    {
+        if (Vector3.Distance(v1, v2) > minDistance)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+
 
     public void rotateCamTo(Transform t, Vector3 target, float speed)
     {
@@ -96,15 +99,14 @@ public class GameManagement : MonoBehaviour {
         return GameObject.Find(objectName); //levelName
     }
 
-
+    public void syncLevelIn(string levelName)
+    {
+        StartCoroutine(iSyncLevelIn(levelName));
+    }
 
     // Update is called once per frame
     void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoroutine(iSyncLevelIn("boylevelone"));
-        }
 
 	}
 }

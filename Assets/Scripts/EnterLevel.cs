@@ -4,40 +4,54 @@ using UnityEngine;
 
 public class EnterLevel : MonoBehaviour
 {
-
-    public float speed;
-    public float stopZPosition;
-    public Vector3 zoomDisplace;
-    public float zoomSize = 25;
-
     void Start()
     {
-        zoomDisplace = gameObject.transform.position;
+
     }
 
     void Update()
     {
-        zoomDisplace = gameObject.transform.position;
+        
     }
 
-    void OnMouseDown()
+    void OnTriggerEnter(Collider collision)
     {
-        StartCoroutine("PopUp");
-        PlayerPrefs.SetFloat("WorldRotation", transform.parent.rotation.x);
-    }
-
-    IEnumerator PopUp()
-    {
-        while (transform.localPosition.z < stopZPosition - 0.001f)
+        print("in");
+        if (collision.tag == "giant")
         {
-            transform.localPosition = Vector3.Lerp(
-                transform.localPosition,
-                new Vector3(transform.localPosition.x, transform.localPosition.y, stopZPosition),
-                speed / 10 * Time.deltaTime
-            );
+            GameObject g = GameObject.Find("Canvas");
+            g.GetComponent<uiManager>().showhideUIElement("enterLevelButton", true);
+        }
 
-            yield return null;
+    }
+
+    void OnTriggerExit (Collider collision)
+    {
+        if (collision.tag == "giant")
+        {
+            GameObject g = GameObject.Find("Canvas");
+            g.GetComponent<uiManager>().showhideUIElement("enterLevelButton", false);
         }
     }
+
+    //void OnMouseDown()
+    //{
+    //    StartCoroutine("PopUp");
+    //    PlayerPrefs.SetFloat("WorldRotation", transform.parent.rotation.x);
+    //}
+
+    //IEnumerator PopUp()
+    //{
+    //    while (transform.localPosition.z < stopZPosition - 0.001f)
+    //    {
+    //        transform.localPosition = Vector3.Lerp(
+    //            transform.localPosition,
+    //            new Vector3(transform.localPosition.x, transform.localPosition.y, stopZPosition),
+    //            speed / 10 * Time.deltaTime
+    //        );
+
+    //        yield return null;
+    //    }
+    //}
 
 }
