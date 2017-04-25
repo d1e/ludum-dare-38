@@ -16,12 +16,12 @@ public class BoyFallReset : MonoBehaviour
         Debug.Log("fell");
         if (boy.tag == "boy")
         {
-            GameObject resetTo = GameObject.Find(platformName);
-            Debug.Log(resetTo);
+            float startX = PlayerPrefs.GetFloat("BoyStartingPosX", transform.position.x);
+            float startY = PlayerPrefs.GetFloat("BoyStartingPosY", transform.position.y);
+            float startZ = PlayerPrefs.GetFloat("BoyStartingPosZ", transform.position.z);
+           
             boy.transform.position = new Vector3(
-                resetTo.transform.position.x - 5, 
-                resetTo.transform.position.y + 5,
-                boy.transform.position.z
+                startX, startY, startZ
             );
         }
     }
