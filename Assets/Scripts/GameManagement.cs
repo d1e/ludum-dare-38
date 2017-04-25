@@ -83,8 +83,8 @@ public class GameManagement : MonoBehaviour {
         }
 
         //positon the level
-        FindLevelObject(levelName).transform.position = g.transform.position;
-        FindLevelObject(levelCamName).GetComponent<Camera>().enabled = false;
+        //FindLevelObject(levelName).transform.position = g.transform.position;
+        FindLevelObject(levelCamName).GetComponent<Camera>().enabled = true;
         
         //move camera to the level
         float elapsedTime = 0;
